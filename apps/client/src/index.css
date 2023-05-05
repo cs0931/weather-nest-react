@@ -1,0 +1,14 @@
+.bg_img {
+  width: 100%;
+  min-height: 100vh;
+  background: url(assets/bg.jpeg) no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #fff;
+}
+
+body {
+  overflow-x: hidden;
+}
