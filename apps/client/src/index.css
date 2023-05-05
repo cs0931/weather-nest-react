@@ -12,3 +12,55 @@
 body {
   overflow-x: hidden;
 }
+.input {
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 0.25rem;
+}
+
+.box_container {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.city {
+  margin-top: 2rem;
+}
+
+.city,
+.temp {
+  font-size: 3rem;
+}
+
+.box {
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s;
+}
+
+@media only screen and (max-width: 730px) {
+  .bg_img {
+    padding: 2rem 0;
+  }
+
+  .box_container {
+    flex-direction: column;
+  }
+
+  .box,
+  .input {
+    width: 70vw;
+  }
+
+  .city {
+    width: 70vw;
+  }
+}
