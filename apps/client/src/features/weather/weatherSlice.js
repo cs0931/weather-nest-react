@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const weatherURL = 'https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?'
-const trafficURL = 'https://api.data.gov.sg/v1/transport/traffic-images?'
+// const trafficURL = 'https://api.data.gov.sg/v1/transport/traffic-images?'
+const nestApi = 'http://localhost:5173/api/getTrafficImages?'
 
 export const getLocations = createAsyncThunk('weather/getLocations', async (dateTime) => {
   return fetch(
@@ -16,7 +17,7 @@ export const getLocations = createAsyncThunk('weather/getLocations', async (date
 
 export const getTrafficImages = createAsyncThunk('weather/getTrafficImages', async (dateTime) => {
   return fetch(
-    trafficURL +
+    nestApi +
       new URLSearchParams({
         date_time: dateTime,
       })
