@@ -87,24 +87,26 @@ const weatherSlice = createSlice({
         const { latitude, longitude } = result[0].label_location
 
         const actionItems = action.payload.items[0].cameras
-        // filter cameras by distance from given latitude and longitude
-        const cameras = actionItems.filter((camera) => {
-          const { latitude: lat, longitude: lon } = camera.location
-          const distance = Math.sqrt((latitude - lat) ** 2 + (longitude - lon) ** 2)
-          return distance < 0.01 // adjust this threshold as needed
-        })
-        // return image attribute and value of closest camera, or null if no cameras found
-        if (cameras.length > 0) {
-          const closestCamera = cameras.reduce((prev, curr) => {
-            const { latitude: prevLat, longitude: prevLon } = prev.location
-            const { latitude: currLat, longitude: currLon } = curr.location
-            const prevDistance = Math.sqrt((latitude - prevLat) ** 2 + (longitude - prevLon) ** 2)
-            const currDistance = Math.sqrt((latitude - currLat) ** 2 + (longitude - currLon) ** 2)
-            return prevDistance < currDistance ? prev : curr
+
+        // first check if there is an exact match for the latitude and longitude
+        const matchedImages = actionItems.filter((item) => item.location.latitude === latitude && item.location.longitude === longitude)
+        if (matchedImages.length > 0) {
+          const imageURL = matchedImages.map((item) => item.image)
+          state.trafficImageUrl = imageURL
+        }
+        // find the nearest location based on latitude and longitude
+        else {
+          const distances = actionItems.map((item) => {
+            const latDiff = item.location.latitude - latitude
+            const lonDiff = item.location.longitude - longitude
+            const distance = Math.sqrt(latDiff * latDiff + lonDiff * lonDiff)
+            return { item, distance }
           })
-          state.weatherURL = closestCamera.value
-        } else {
-          return null
+
+          const sortedDistances = distances.sort((a, b) => a.distance - b.distance)
+          const nearestItem = sortedDistances[0].item
+
+          state.trafficImageUrl = nearestItem.image
         }
       } else return null
     },
