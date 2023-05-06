@@ -15,14 +15,16 @@ export const getLocations = createAsyncThunk('weather/getLocations', async (date
     .catch((err) => console.log(err))
 })
 
-export const getTrafficImages = createAsyncThunk('weather/getTrafficImages', async (dateTime) => {
+export const getTrafficImages = createAsyncThunk('weather/getTrafficImages', async ({ dateTime, latitude, longitude }) => {
   return fetch(
     nestApi +
       new URLSearchParams({
+        latitude: latitude,
+        longitude: longitude,
         date_time: dateTime,
       })
   )
-    .then((resp) => resp.json())
+    .then((resp) => resp.text())
     .catch((err) => console.log(err))
 })
 
@@ -79,37 +81,8 @@ const weatherSlice = createSlice({
       console.log(state)
     },
     [getTrafficImages.fulfilled]: (state, action) => {
-      const selectedLocation = state.location
-      const locations = state.locations
-
-      // get the latitude and longitude for the selected city from the dropdown
-      const result = locations.filter((obj) => obj.name === selectedLocation)
-      if (result.length > 0) {
-        const { latitude, longitude } = result[0].label_location
-
-        const actionItems = action.payload.items[0].cameras
-
-        // first check if there is an exact match for the latitude and longitude
-        const matchedImages = actionItems.filter((item) => item.location.latitude === latitude && item.location.longitude === longitude)
-        if (matchedImages.length > 0) {
-          const imageURL = matchedImages.map((item) => item.image)
-          state.trafficImageUrl = imageURL
-        }
-        // find the nearest location based on latitude and longitude
-        else {
-          const distances = actionItems.map((item) => {
-            const latDiff = item.location.latitude - latitude
-            const lonDiff = item.location.longitude - longitude
-            const distance = Math.sqrt(latDiff * latDiff + lonDiff * lonDiff)
-            return { item, distance }
-          })
-
-          const sortedDistances = distances.sort((a, b) => a.distance - b.distance)
-          const nearestItem = sortedDistances[0].item
-
-          state.trafficImageUrl = nearestItem.image
-        }
-      } else return null
+      const imageUrl = action.payload
+      state.trafficImageUrl = imageUrl
     },
     [getTrafficImages.rejected]: (state) => {
       console.log(state)

@@ -15,7 +15,19 @@ export const Location = () => {
     setSelectedLocation(event.target.value)
     dispatch(setLocation(event.target.value))
     if (date != null && date != '' && time != null && time != '' && event.target.value != null && event.target.value != '') {
-      dispatch(getTrafficImages(date.toDate().toLocaleDateString('en-CA') + 'T' + time.format('HH:mm:ss')))
+      // get the latitude and longitude for the selected city from the dropdown
+      const result = locations.filter((obj) => obj.name === event.target.value)
+      if (result.length > 0) {
+        const { latitude, longitude } = result[0].label_location
+
+        dispatch(
+          getTrafficImages({
+            dateTime: date.toDate().toLocaleDateString('en-CA') + 'T' + time.format('HH:mm:ss'),
+            latitude: latitude,
+            longitude: longitude,
+          })
+        )
+      }
     }
   }
 
