@@ -40,7 +40,6 @@ export class AppController {
         const nearestItem = sortedDistances[0].item;
         return nearestItem.image;
       }
-      // return trafficImages;
     } catch (error) {
       throw new Error('Failed to retrieve traffic images');
     }

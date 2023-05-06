@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import '../../../env.js'
+
+//  better approach to access the api end points
+// const weatherURL = process.env.REACT_APP_WEATHER_URL
+// const nestApi = process.env.REACT_APP_TRAFFIC_URL
 
 const weatherURL = 'https://api.data.gov.sg/v1/environment/2-hour-weather-forecast?'
-// const trafficURL = 'https://api.data.gov.sg/v1/transport/traffic-images?'
 const nestApi = 'http://localhost:5173/api/getTrafficImages?'
 
 export const getLocations = createAsyncThunk('weather/getLocations', async (dateTime) => {
