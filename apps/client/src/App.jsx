@@ -10,25 +10,28 @@ import { TrafficBox } from './components/TrafficBox'
 function App() {
   return (
     <div className="bg_img">
-      <Container>
+      <Container maxWidth="xs">
         <Grid container spacing={3} alignItems="center" justifyContent="center">
           <Grid item xs={12}>
-            <HomeDisplay></HomeDisplay>
+            <div className="center">
+              <HomeDisplay></HomeDisplay>
+            </div>
           </Grid>
-          <Grid item>
+          <Grid item md={6}>
             <DatePickerComponent> </DatePickerComponent>
           </Grid>
-          <Grid item>
+          <Grid item md={6}>
             <TimePickerComponent></TimePickerComponent>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+
+          <div className="center"></div>
+          <Grid item>
             <Location></Location>
           </Grid>
-
-          <Grid item xs={12} sm={12} md={12}>
+          <Grid item xs={12}>
             <WeatherBox></WeatherBox>
           </Grid>
-          <Grid>
+          <Grid item xs={12}>
             <TrafficBox></TrafficBox>
           </Grid>
         </Grid>

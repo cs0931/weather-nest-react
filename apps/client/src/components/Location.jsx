@@ -45,7 +45,7 @@ export const Location = () => {
         label="Location"
         value={selectedLocation}
         sx={{
-          width: { sm: 200, md: 450 },
+          width: { sm: 200, md: 400 },
         }}
         onChange={handleLocationChange}
       >
