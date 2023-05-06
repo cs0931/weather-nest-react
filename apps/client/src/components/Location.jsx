@@ -14,7 +14,7 @@ export const Location = () => {
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value)
     dispatch(setLocation(event.target.value))
-    if (date != null && date != '' && time != null && time != '' && selectedLocation != null && selectedLocation != '') {
+    if (date != null && date != '' && time != null && time != '' && event.target.value != null && event.target.value != '') {
       dispatch(getTrafficImages(date.toDate().toLocaleDateString('en-CA') + 'T' + time.format('HH:mm:ss')))
     }
   }

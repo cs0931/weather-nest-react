@@ -10,11 +10,7 @@ export const TrafficBox = () => {
   return (
     <div className="box_container">
       <div className="box">
-        <Box
-          component="img"
-          alt="..."
-          src="https://images.data.gov.sg/api/traffic-images/2023/05/00a3d10d-a34c-434c-ab35-a76503b6e4e6.jpg"
-        />
+        <Box component="img" alt="..." src={trafficImageUrl} />
       </div>
     </div>
   )
