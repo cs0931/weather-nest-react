@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import '../../../env.js'
+
 
 //  better approach to access the api end points
 // const weatherURL = process.env.REACT_APP_WEATHER_URL
